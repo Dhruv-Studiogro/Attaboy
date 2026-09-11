@@ -1,1 +1,20 @@
-Delete attaboylabs.zip
+cd ~/Desktop
+
+git clone https://github.com/Dhruv-Studiogro/Attaboy.git
+cd Attaboy
+
+python -m pip install git-filter-repo
+
+git log --all --name-only --pretty=format: | grep -Fx "attaboylabs.zip"
+
+git filter-repo --sensitive-data-removal --invert-paths --path attaboylabs.zip
+
+git log --all --name-only --pretty=format: | grep -Fx "attaboylabs.zip"
+
+git rev-list --objects --all | grep -F "attaboylabs.zip"
+
+echo attaboylabs.zip >> .gitignore
+git add .gitignore
+git commit -m "Ignore attaboylabs.zip"
+
+git push --force --mirror origin
